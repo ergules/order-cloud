@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Taco Cloud</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+
+<body>
+    <h1><img th:src="@{/images/TacoCloud.png}" />Order your taco creations!</h1>
+    <form method="POST" th:action="@{/orders}" th:object="${order}">
+        <a th:href="@{/design}" id="another">Design another taco</a><br />
+        <ol class="valEr">
+            <li th:each="design : *{tacos}" th:text="${design.name}">list el</li>
+        </ol>
+        <div th:if="${#fields.hasErrors()}">
+            <span class="valEr" >Please correct the problems below and resubmit.</span>
+        </div>
+                <h3>Deliver my taco masterpieces to...</h3>
+                <label for="name">Name: </label>
+                <input type="text" th:field="*{name}"/>
+                <span class="valEr" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">errholder</span>
+                <br/>
+                <label for="street">Street address: </label>
+                <input type="text" th:field="*{street}"/>
+                <span class="valEr" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">errholder</span>
+                <br/>
+                <label for="city">City: </label>
+                <input type="text" th:field="*{city}"/>
+                <span class="valEr" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">errholder</span>
+                <br/>
+                <label for="state">State: </label>
+                <input type="text" th:field="*{state}"/>
+                <span class="valEr" th:if="${#fields.hasErrors('state')}" th:errors="*{state}">errholder</span>
+                <br/>
+                <label for="zip">Zip code: </label>
+                <input type="text" th:field="*{zip}"/>
+                <br/>
+                <h3>Here's how I'll pay...</h3>
+                <label for="ccNumber">Credit Card #: </label>
+                <input type="text" th:field="*{ccNumber}"/>
+                <span class="valEr" th:if="${#fields.hasErrors('ccNumber')}" th:errors="*{ccNumber}">errholder</span>
+                <br/>
+                <label for="ccExpiration">Expiration: </label>
+                <input type="text" th:field="*{ccExpiration}"/>
+                <span class="valEr" th:if="${#fields.hasErrors('ccExpiration')}" th:errors="*{ccExpiration}">errholder</span>
+                <br/>
+                <label for="ccCVV">CVV: </label>
+                <input type="text" th:field="*{ccCVV}"/>
+                <span class="valEr" th:if="${#fields.hasErrors('ccCVV')}" th:errors="*{ccCVV}">errholder</span>
+                <br/>
+                <input type="submit" value="Submit order"/>
+            </form>
+        </body>
+</html>
