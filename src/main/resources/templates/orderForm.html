@@ -48,6 +48,7 @@
                 <label for="ccCVV">CVV: </label>
                 <input type="text" th:field="*{ccCVV}"/>
                 <span class="valEr" th:if="${#fields.hasErrors('ccCVV')}" th:errors="*{ccCVV}">errholder</span>
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
                 <br/>
                 <input type="submit" value="Submit order"/>
             </form>

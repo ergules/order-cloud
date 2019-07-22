@@ -1,6 +1,7 @@
 package tacos.web;
 
 import tacos.Taco;
+import tacos.User;
 import tacos.Ingredient;
 import tacos.Order;
 import tacos.Ingredient.Type;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -60,12 +62,14 @@ public class DesignTacoController {
     }
 
     @PostMapping
-    public String processDesign(@Valid Taco taco, Errors errors, @ModelAttribute Order order) {
+    public String processDesign(@Valid Taco taco, Errors errors, @ModelAttribute Order order, @AuthenticationPrincipal User user) {
         if (errors.hasErrors())
             return "design";
 
         Taco saved = tacoRepo.save(taco);
         order.addDesign(saved);
+        order.setUser(user);
+        //System.out.println("---------------\n post mapping dispatching");
         return "redirect:orders/current";
     }
 

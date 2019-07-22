@@ -11,8 +11,7 @@
 
 
     <form method="POST" th:object="${taco}">
-        <span class="valEr"
-        th:if="${#fields.hasErrors()}" 
+        <span class="valEr" th:if="${#fields.hasErrors()}" 
         th:errors="*{ingredients}">Ingredient Error</span>
         <div class="grid">
             <div class="ingredient-group" id="wraps">
@@ -52,11 +51,10 @@
             </div>
         </div>
         <div>
-                <span class="valEr"
-                th:if="${#fields.hasErrors()}" 
-                th:errors="*{name}">Ingredient Error</span>
+            <span class="valEr" th:if="${#fields.hasErrors()}" th:errors="*{name}">Ingredient Error</span>
             <h3>Name your taco creation:</h3>
             <input type="text" th:field="*{name}" />
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
             <br />
             <button>Submit your taco</button>
         </div>
