@@ -3,28 +3,29 @@
 
 <head>
     <title>Taco Cloud</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
 </head>
 
 <body>
     <h1><img th:src="@{/images/TacoCloud.png}" />Register</h1>
     
-    <form method="POST" th:action="@{/register}" id="registerForm">
+    <form method="POST" th:action="@{/register}" th:object="${userDTO}">
         <label for="username">Username: </label>
-        <input type="text" name="username" /><br />
+        <input type="text" name="username" /><span class="valEr" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">errholder</span> <br /> 
         <label for="password">Password: </label>
-        <input type="password" name="password" /><br />
+        <input type="password" name="password" /><span class="valEr" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">errholder</span> <br />
         <label for="confirm">Confirm password: </label>
-        <input type="password" name="confirm" /><br />
+        <input type="password" name="confirm" /><span class="valEr" th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}">errholder</span> <br />
         <label for="fullname">Full name: </label>
-        <input type="text" name="fullname" /><br />
+        <input type="text" name="fullname" /><span class="valEr" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}">errholder</span> <br />
         <label for="street">Street: </label>
-        <input type="text" name="street" /><br />
+        <input type="text" name="street" /><span class="valEr" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">errholder</span> <br />
         <label for="city">City: </label>
-        <input type="text" name="city" /><br />
+        <input type="text" name="city" /><span class="valEr" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">errholder</span> <br />
         <label for="state">State: </label>
-        <input type="text" name="state" /><br />
+        <input type="text" name="state" /><span class="valEr" th:if="${#fields.hasErrors('state')}" th:errors="*{state}">errholder</span> <br />
         <label for="phone">Phone: </label>
-        <input type="text" name="phone" /><br />
+        <input type="text" name="phone" /><span class="valEr" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">errholder</span> <br />
         <input type="submit" value="Register" />
     </form>
 </body>

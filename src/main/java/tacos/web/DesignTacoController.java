@@ -69,7 +69,6 @@ public class DesignTacoController {
         Taco saved = tacoRepo.save(taco);
         order.addDesign(saved);
         order.setUser(user);
-        //System.out.println("---------------\n post mapping dispatching");
         return "redirect:orders/current";
     }
 
