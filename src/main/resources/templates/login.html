@@ -1,24 +1,27 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>Taco Cloud</title>
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/loginform.css}" />
 </head>
 
-<body>
-    <h1><img th:src="@{/images/TacoCloud.png}" />Login</h1>
-
-    <div th:if="${error}">
-        Unable to login. Check your username and password.
-    </div>
-    
-    <p>New here? Click <a th:href="@{/register}">here</a> to register.</p>
-    <form method="POST" th:action="@{/login}" id="loginForm">
-        <label for="username">Username: </label>
-        <input type="text" name="username" id="username" /><br />
-        <label for="password">Password: </label>
-        <input type="password" name="password" id="password" /><br />
-        <input type="submit" value="Login" />
+<body class="text-center">
+    <form class="form-signin" method="POST" th:action="@{/login}">
+        <img class="mb-4" th:src="@{/images/TacoCloud.png}" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <div th:if="${param.error}" class="text-danger">
+            Please check your username and password
+        </div>
+        <input type="text" id="username" name="username" class="form-control" placeholder="User Name" required
+            autofocus>
+        <input type="password" id="Password" name="password" class="form-control" placeholder="Password" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">New here? <a th:href="@{/register}">Click</a> to register.</p>
     </form>
 </body>
 

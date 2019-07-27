@@ -34,7 +34,9 @@ public class OrderController {
 
     @PostMapping
     public String processOrder(@Valid Order order, Errors errors, SessionStatus sessionStatus) {
-        if (errors.hasErrors()) return "orderForm";
+        if (errors.hasErrors()) {
+            System.out.println("error : "+errors.toString());
+            return "orderForm";}
 
         for (Taco taco : order.getTacos()) {
             taco = tacoRepo.save(taco);

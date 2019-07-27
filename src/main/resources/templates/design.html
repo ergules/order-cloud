@@ -2,63 +2,106 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Taco Cloud</title>
-    <link rel="stylesheet" th:href="@{/styles.css}" />
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+
+    <style>
+        .form-design {
+            width: 100%;
+            max-width: 480px;
+            padding: 10px;
+            margin: auto;
+        }
+    </style>
+
 </head>
 
 <body>
-    <h1><img th:src="@{/images/TacoCloud.png}" />Design your taco!</h1>
+    <nav class="navbar navbar-light bg-light justify-content-between shadow mb-3">
+        <a> </a>
+        <a class="navbar-brand" href="#">
+            <h2><img th:src="@{/images/TacoCloud.png}" width="40" class="d-inline-block align-top" alt=""> Taco Cloud
+            </h2>
+        </a>
+        <a class="btn btn-outline-secondary my-2 my-sm-0" th:href="@{/logout}">Log Out</a>
+    </nav>
 
-
-    <form method="POST" th:object="${taco}">
-        <span class="valEr" th:if="${#fields.hasErrors()}" 
-        th:errors="*{ingredients}">Ingredient Error</span>
-        <div class="grid">
-            <div class="ingredient-group" id="wraps">
-                <h3>Designate your wrap:</h3>
-                <div th:each="ingredient : ${WRAP}">
-                    <input name="ingredients" type="checkbox" th:value="${ingredient.id}" />
-                    <span th:text="${ingredient.name}">INGREDIENT</span><br />
-                </div>
-            </div>
-            <div class="ingredient-group" id="proteins">
-                <h3>Pick your protein:</h3>
-                <div th:each="ingredient : ${PROTEIN}">
-                    <input name="ingredients" type="checkbox" th:value="${ingredient.id}" />
-                    <span th:text="${ingredient.name}">INGREDIENT</span><br />
-                </div>
-            </div>
-            <div class="ingredient-group" id="cheeses">
-                <h3>Choose your cheese:</h3>
-                <div th:each="ingredient : ${CHEESE}">
-                    <input name="ingredients" type="checkbox" th:value="${ingredient.id}" />
-                    <span th:text="${ingredient.name}">INGREDIENT</span><br />
-                </div>
-            </div>
-            <div class="ingredient-group" id="veggies">
-                <h3>Determine your veggies:</h3>
-                <div th:each="ingredient : ${VEGGIES}">
-                    <input name="ingredients" type="checkbox" th:value="${ingredient.id}" />
-                    <span th:text="${ingredient.name}">INGREDIENT</span><br />
-                </div>
-            </div>
-            <div class="ingredient-group" id="sauces">
-                <h3>Select your sauce:</h3>
-                <div th:each="ingredient : ${SAUCE}">
-                    <input name="ingredients" type="checkbox" th:value="${ingredient.id}" />
-                    <span th:text="${ingredient.name}">INGREDIENT</span><br />
-                </div>
-            </div>
+    <div class="container">
+        <form class="form-design form-control-lg" method="POST" th:object="${taco}">
+            <span class="text-danger" th:if="${#fields.hasErrors()}" th:errors="*{ingredients}">Ingredient Error</span>
+        
+        <h5 class="font-weight-light mt-3">Designate your wrap:</h5>
+        <div class="form-check-inline radio-bg mb-3">
+            <label class="form-check-label">
+                <input class="form-check-input" name="ingredients" type="radio" value="COTO" />
+            Corn Tortilla</label>
         </div>
-        <div>
-            <span class="valEr" th:if="${#fields.hasErrors()}" th:errors="*{name}">Ingredient Error</span>
-            <h3>Name your taco creation:</h3>
-            <input type="text" th:field="*{name}" />
+        <div class="form-check-inline radio radio-bg  mb-3">
+            <label class="form-check-label">
+                <input class="form-check-input" name="ingredients" type="radio" value="FLTO" />
+            Flour Tortilla</label>
+        </div>
+                
+        <h5 class="font-weight-light mt-3">Pick your protein:</h5>
+        <div class="form-check-inline  mb-3">
+            <label class="form-check-label">
+                <input class="form-check-input" name="ingredients" type="checkbox" value="CARN" />
+            Carnitas</label>
+        </div>
+        <div class="form-check-inline mb-3">
+            <label class="form-check-label">
+                <input class="form-check-input" name="ingredients" type="checkbox" value="GRBF" />
+            Ground Beef</label>
+        </div>
+        
+
+        <h5 class="font-weight-light mt-3">Choose your cheese:</h5>
+        <div class="form-check-inline mb-3">
+            <label class="form-check-label">
+                <input class="form-check-input" name="ingredients" type="checkbox" value="CHED" />
+            Cheddar</label>
+        </div>
+        <div class="form-check-inline mb-3">
+            <label class="form-check-label">
+                <input class="form-check-input" name="ingredients" type="checkbox" value="JACK" />
+            Monterrey Jack</label>
+        </div>
+
+        <h5 class="font-weight-light mt-3">Determine your veggies:</h5>
+        <div class="form-check-inline mb-3">
+            <label class="form-check-label">
+                <input class="form-check-input" name="ingredients" type="checkbox" value="LETC" />
+            Lettuce</label>
+        </div>
+        <div class="form-check-inline mb-3">
+            <label class="form-check-label">
+                <input class="form-check-input" name="ingredients" type="checkbox" value="TMTO" />
+            Diced Tomatoes</label>
+        </div>
+
+        <h5 class="font-weight-light mt-3">Select your sauce:</h5>
+        <div class="form-check-inline mb-3">
+            <label class="form-check-label">
+                <input class="form-check-input" name="ingredients" type="checkbox" value="SRCR" />
+            Sour Cream</span>
+        </div>
+        <div class="form-check-inline mb-3">
+            <label class="form-check-label">
+                <input class="form-check-input" name="ingredients" type="checkbox" value="SLSA" />
+            Salsa</label>
+        </div>
+
+        <br />
+        <span class="text-danger" th:if="${#fields.hasErrors()}" th:errors="*{name}">Ingredient Error</span>
+        <h5 class="font-weight-light mt-3">Name your taco creation:</h5>
+            <input class="form-control" type="text" th:field="*{name}" />
             <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
             <br />
-            <button>Submit your taco</button>
-        </div>
-    </form>
+            <button type="submit" class="btn btn-outline-primary">Check Out</button>
+        </form>
+</div>
 </body>
 
 </html>

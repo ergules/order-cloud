@@ -2,55 +2,92 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Taco Cloud</title>
-    <link rel="stylesheet" th:href="@{/styles.css}" />
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+
+    <style>
+        .form-order {
+            width: 100%;
+            max-width: 860px;
+            padding: 10px;
+            margin: auto;
+        }
+    </style>
 </head>
 
 <body>
-    <h1><img th:src="@{/images/TacoCloud.png}" />Order your taco creations!</h1>
-    <form method="POST" th:action="@{/orders}" th:object="${order}">
-        <a th:href="@{/design}" id="another">Design another taco</a><br />
-        <ol class="valEr">
-            <li th:each="design : *{tacos}" th:text="${design.name}">list el</li>
-        </ol>
-        <div th:if="${#fields.hasErrors()}">
-            <span class="valEr" >Please correct the problems below and resubmit.</span>
+    <nav class="navbar navbar-light bg-light justify-content-between shadow mb-5">
+        <a> </a>
+        <a class="navbar-brand" href="#">
+            <h2><img th:src="@{/images/TacoCloud.png}" width="40" class="d-inline-block align-top" alt=""> Taco Cloud
+            </h2>
+        </a>
+        <a class="btn btn-outline-secondary my-2 my-sm-0" th:href="@{/logout}">Log Out</a>
+    </nav>
+
+    <div class="container">
+
+        <div class="container border rounded-sm my-3 form-order">
+            <span th:text="${'You have ordered ' + #lists.size(order.tacos)}">design number</span>
+            <span th:text="${#lists.size(order.tacos) gt 1 ? 'tacos. ' : 'taco. '}">s</span>
+            
+            <a th:href="@{/design}" id="another">Design another?</a><br />
         </div>
-                <h3>Deliver my taco masterpieces to...</h3>
+        <form class="form-order" method="POST" th:action="@{/orders}" th:object="${order}">
+            <div class="row border rounded-sm p-3">
+                <div class="col-sm">
+                <h3>Deliver my taco masterpieces to:</h3>
+                <div class="form-group">
                 <label for="name">Name: </label>
-                <input type="text" th:field="*{name}"/>
-                <span class="valEr" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">errholder</span>
-                <br/>
+                <input class="form-control" type="text" th:name="name" th:value="*{user.fullname}" required/>
+                <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">err.msg</span>
+                </div>
+                <div class="form-group">
                 <label for="street">Street address: </label>
-                <input type="text" th:field="*{street}"/>
-                <span class="valEr" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">errholder</span>
-                <br/>
+                <input class="form-control" type="text" th:name="street" th:value="*{user.street}" required/>
+                <span class="text-danger" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">err.msg</span>
+                </div>
+                <div class="form-group">
                 <label for="city">City: </label>
-                <input type="text" th:field="*{city}"/>
-                <span class="valEr" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">errholder</span>
-                <br/>
+                <input class="form-control" type="text" th:name="city" th:value="*{user.city}" required/>
+                <span class="text-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">err.msg</span>
+                </div>
+                <div class="form-group">
                 <label for="state">State: </label>
-                <input type="text" th:field="*{state}"/>
-                <span class="valEr" th:if="${#fields.hasErrors('state')}" th:errors="*{state}">errholder</span>
-                <br/>
+                <input class="form-control" type="text" th:name="state" th:value="*{user.state}" required/>
+                <span class="text-danger" th:if="${#fields.hasErrors('state')}" th:errors="*{state}">err.msg</span>
+                </div>
+                <div class="form-group">
                 <label for="zip">Zip code: </label>
-                <input type="text" th:field="*{zip}"/>
-                <br/>
+                <input class="form-control" type="text" th:name="zip"/>
+                <span class="text-danger" th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}">err.msg</span>
+                </div>
+            </div>
+            <div class="col-sm">
                 <h3>Here's how I'll pay...</h3>
-                <label for="ccNumber">Credit Card #: </label>
-                <input type="text" th:field="*{ccNumber}"/>
-                <span class="valEr" th:if="${#fields.hasErrors('ccNumber')}" th:errors="*{ccNumber}">errholder</span>
-                <br/>
-                <label for="ccExpiration">Expiration: </label>
-                <input type="text" th:field="*{ccExpiration}"/>
-                <span class="valEr" th:if="${#fields.hasErrors('ccExpiration')}" th:errors="*{ccExpiration}">errholder</span>
-                <br/>
-                <label for="ccCVV">CVV: </label>
-                <input type="text" th:field="*{ccCVV}"/>
-                <span class="valEr" th:if="${#fields.hasErrors('ccCVV')}" th:errors="*{ccCVV}">errholder</span>
-                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
-                <br/>
-                <input type="submit" value="Submit order"/>
-            </form>
-        </body>
+                <div class="form-group">
+                    <label for="ccNumber">Credit Card #: </label>
+                    <input class="form-control" type="text" th:field="*{ccNumber}" required autofocus/>
+                    <span class="text-danger" th:if="${#fields.hasErrors('ccNumber')}" th:errors="*{ccNumber}">err.msg</span>
+                </div>
+                <div class="form-group">
+                    <label for="ccExpiration">Expiration: </label>
+                    <input class="form-control" type="text" th:field="*{ccExpiration}" required/>
+                    <span class="text-danger" th:if="${#fields.hasErrors('ccExpiration')}" th:errors="*{ccExpiration}">err.msg</span>
+                </div>
+                <div class="form-group"> 
+                    <label for="ccCVV">CVV: </label>
+                    <input class="form-control" type="text" th:field="*{ccCVV}" required/>
+                    <span class="text-danger" th:if="${#fields.hasErrors('ccCVV')}" th:errors="*{ccCVV}">err.msg</span>
+                </div>
+                <input class="form-control" type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            </div>
+            <button type="submit" class="btn btn-success btn-block m-3">Place Order</button>
+        </div>
+                
+        </form>
+    </div>
+</body>
 </html>

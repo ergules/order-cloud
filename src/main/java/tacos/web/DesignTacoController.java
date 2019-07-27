@@ -2,16 +2,9 @@ package tacos.web;
 
 import tacos.Taco;
 import tacos.User;
-import tacos.Ingredient;
 import tacos.Order;
-import tacos.Ingredient.Type;
-import tacos.data.IngredientRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 import javax.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,9 +20,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes("order")
 public class DesignTacoController {
 
-    @Autowired
-    private IngredientRepository ingredientRepo;
-
     @ModelAttribute(name = "taco")
     public Taco taco() {
         return new Taco();
@@ -42,13 +32,6 @@ public class DesignTacoController {
 
     @GetMapping
     public String showDesignForm(Model model) {
-        List<Ingredient> ingredients = new ArrayList<>();
-        ingredientRepo.findAll().forEach(ingredients::add);
-
-        Type[] types = Ingredient.Type.values();
-        for (Type type : types) {
-            model.addAttribute(type.toString(), filterByType(ingredients, type));
-        }
         return "design";
     }
 
@@ -56,16 +39,8 @@ public class DesignTacoController {
     public String processDesign(@Valid Taco taco, Errors errors, @ModelAttribute Order order, @AuthenticationPrincipal User user) {
         if (errors.hasErrors())
             return "design";
-        //Taco saved = tacoRepo.save(taco);
-        //order.addDesign(saved);
         order.addDesign(taco);
         order.setUser(user);
         return "redirect:orders/current";
     }
-
-    private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
-        return ingredients.stream().filter(x -> x.getType().equals(type)).collect(Collectors.toList());
-
-    }
-
 }

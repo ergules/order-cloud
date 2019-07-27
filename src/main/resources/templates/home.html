@@ -1,18 +1,41 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Taco Cloud</title>
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+    <style>
+        .home {
+            width: 100%;
+            max-width: 480px;
+            padding: 10px;
+            margin: auto;
+            margin-top: 48px;
+        }
+    </style>
+
 </head>
 
 <body>
-    <p>
-        <h1><img th:src="@{/images/TacoCloud.png}" />Welcome</h1>
-    </p>
+    <nav class="navbar navbar-light bg-light justify-content-between shadow mb-3">
+        <a> </a>
+        <a class="navbar-brand" href="#">
+            <h2><img th:src="@{/images/TacoCloud.png}" width="40" class="d-inline-block align-top" alt=""> Taco Cloud
+            </h2>
+        </a>
+        <a class="btn btn-outline-secondary my-2 my-sm-0" th:href="@{/logout}">Log Out</a>
+    </nav>
 
-    <p>
-        <a th:href="@{/design}">Design your taco</a><br />
-    </p>
+    <div class="container home shadow text-center">
+        <p class="mb-3 text-muted">
+            <a href="/design">Design Form</a>
+        </p>
+        <p class="mb-3 text-muted">
+            <a href="/register">Registration Form</a>
+        </p>
+    </div>
 </body>
 
 </html>

@@ -1,33 +1,89 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Taco Cloud</title>
-    <link rel="stylesheet" th:href="@{/styles.css}" />
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+
+    <style>
+        body {
+            padding-top: 50px;
+            padding-bottom: 50px;
+            background-color: #f5f5f5;
+        }
+
+        .form-register {
+            width: 100%;
+            max-width: 600px;
+            padding: 10px;
+            margin: auto;
+        }
+
+        .form-register button {
+            margin-top: 16px;
+        }
+
+        span.valEr {
+            color: orangered;
+        }
+    </style>
+
 </head>
 
 <body>
-    <h1><img th:src="@{/images/TacoCloud.png}" />Register</h1>
-    
-    <form method="POST" th:action="@{/register}" th:object="${userDTO}">
-        <label for="username">Username: </label>
-        <input type="text" name="username" /><span class="valEr" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">errholder</span> <br /> 
-        <label for="password">Password: </label>
-        <input type="password" name="password" /><span class="valEr" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">errholder</span> <br />
-        <label for="confirm">Confirm password: </label>
-        <input type="password" name="confirm" /><span class="valEr" th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}">errholder</span> <br />
-        <label for="fullname">Full name: </label>
-        <input type="text" name="fullname" /><span class="valEr" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}">errholder</span> <br />
-        <label for="street">Street: </label>
-        <input type="text" name="street" /><span class="valEr" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">errholder</span> <br />
-        <label for="city">City: </label>
-        <input type="text" name="city" /><span class="valEr" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">errholder</span> <br />
-        <label for="state">State: </label>
-        <input type="text" name="state" /><span class="valEr" th:if="${#fields.hasErrors('state')}" th:errors="*{state}">errholder</span> <br />
-        <label for="phone">Phone: </label>
-        <input type="text" name="phone" /><span class="valEr" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">errholder</span> <br />
-        <input type="submit" value="Register" />
-    </form>
-</body>
-
+    <div class="container">
+        <form class="form-register" method="POST" th:action="@{/register}" th:object="${userDTO}">
+            <div class="text-center">
+                <img class="mb-4 text-center" th:src="@{/images/TacoCloud.png}" alt="" width="72" height="72">
+                <h1 class="h3 mb-3 font-weight-normal">Register to TacoCloud</h1>
+            </div>
+            <div class="form-group">
+                <label for="username">Username: </label>
+                <input class="form-control" type="text" name="username" required autofocus />
+                <span class="valEr" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+          </div>
+          <div class="form-group">
+                <label for="password">Password: </label>
+                <input class="form-control" type="password" name="password" required/>
+                <span class="valEr" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+          </div>
+          <div class="form-group">
+                <label for="confirm">Confirm password: </label>
+                <input class="form-control" type="password" name="confirm" required/>
+                <span class="valEr" th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}"></span>
+          </div>
+          <div class="form-group">
+                <label for="fullname">Full name: </label>
+                <input class="form-control" type="text" name="fullname" required/>
+                <span class="valEr" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}"></span>     
+          </div>
+          <div class="form-group">
+                <label for="street">Street: </label>
+                <input class="form-control" type="text" name="street" />
+                <span class="valEr" th:if="${#fields.hasErrors('street')}" th:errors="*{street}"></span>
+          </div>
+          <div class="form-group">
+                <label for="city">City: </label>
+                <input class="form-control" type="text" name="city" />
+                <span class="valEr" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
+          </div>
+          <div class="form-group">
+                <label for="state">State: </label>
+                <input class="form-control" type="text" name="state" />
+                <span class="valEr" th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></span>
+          </div>
+          <div class="form-group">
+                <label for="phone">Phone: </label>
+                <input class="form-control" type="text" name="phone" />
+                <span class="valEr" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+          </div>
+        <div class="row">
+            <div class="col-4"><button type="reset" class="btn btn-outline-danger btn-block">Reset</button></div>
+            <div class="col-8"><button type="submit" class="btn btn-primary btn-block">Submit Form</button></div>
+        </div>
+        </form>
+      </div>
+    </body>
 </html>
